@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZenoAI Project Dashboard</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Chart.js for sample analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo-block">
+        <div class="logo-circle">Z</div>
+        <div class="logo-text">
+          <span class="logo-title">ZenoAI</span>
+          <span class="logo-sub">Project Dashboard</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active">
+          <span class="nav-dot"></span>
+          Overview
+        </button>
+        <button class="nav-item">
+          <span class="nav-dot"></span>
+          Projects
+        </button>
+        <button class="nav-item">
+          <span class="nav-dot"></span>
+          Automations
+        </button>
+        <button class="nav-item">
+          <span class="nav-dot"></span>
+          Clients
+        </button>
+        <button class="nav-item">
+          <span class="nav-dot"></span>
+          Settings
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          ZenoAI Engine: <strong>Online</strong>
+        </div>
+        <p class="sidebar-note">
+          This dashboard is a demo built with HTML, CSS, JS + Chart.js.
+        </p>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1>Overview</h1>
+          <p>Sample analytics view for ZenoAI client projects.</p>
+        </div>
+
+        <div class="topbar-right">
+          <div class="topbar-filters">
+            <select id="rangeSelect" class="select">
+              <option value="7">Last 7 days</option>
+              <option value="30" selected>Last 30 days</option>
+              <option value="90">Last 90 days</option>
+            </select>
+
+            <button id="refreshBtn" class="btn btn-ghost">
+              ⟳ Refresh data
+            </button>
+          </div>
+
+          <div class="user-pill">
+            <div class="user-avatar">H</div>
+            <div class="user-meta">
+              <span class="user-name">Hussien Harby</span>
+              <span class="user-role">AI Dev • ZenoAI Studio</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- KPI CARDS -->
+      <section class="cards">
+        <article class="card kpi-card">
+          <header>
+            <span class="kpi-label">Active projects</span>
+          </header>
+          <div class="kpi-main">
+            <span id="kpiActive" class="kpi-value">6</span>
+            <span class="kpi-pill positive">+2 this month</span>
+          </div>
+          <p class="kpi-footer">Best range: 4–8 projects in parallel.</p>
+        </article>
+
+        <article class="card kpi-card">
+          <header>
+            <span class="kpi-label">Avg. response time</span>
+          </header>
+          <div class="kpi-main">
+            <span id="kpiResponse" class="kpi-value">3.1h</span>
+            <span class="kpi-pill neutral">Target &lt; 6h</span>
+          </div>
+          <p class="kpi-footer">Fast replies = higher close rate.</p>
+        </article>
+
+        <article class="card kpi-card">
+          <header>
+            <span class="kpi-label">AI-assisted code</span>
+          </header>
+          <div class="kpi-main">
+            <span id="kpiAiUsage" class="kpi-value">62%</span>
+            <span class="kpi-pill positive">Boosted by ZenoAI</span>
+          </div>
+          <p class="kpi-footer">Higher % means faster delivery.</p>
+        </article>
+
+        <article class="card kpi-card">
+          <header>
+            <span class="kpi-label">Satisfaction score</span>
+          </header>
+          <div class="kpi-main">
+            <span id="kpiScore" class="kpi-value">4.9</span>
+            <span class="kpi-pill positive">out of 5.0</span>
+          </div>
+          <p class="kpi-footer">Based on last 10 delivered projects.</p>
+        </article>
+      </section>
+
+      <!-- GRID: CHART + TABLE -->
+      <section class="grid-2">
+        <!-- CHART PANEL -->
+        <article class="card">
+          <header class="card-header">
+            <div>
+              <h2>Revenue & projects</h2>
+              <p>Sample data showing closed projects per month.</p>
+            </div>
+            <div class="legend">
+              <span class="legend-item">
+                <span class="legend-dot legend-dot-primary"></span> Revenue
+              </span>
+              <span class="legend-item">
+                <span class="legend-dot legend-dot-secondary"></span> Projects
+              </span>
+            </div>
+          </header>
+
+          <div class="card-body chart-wrapper">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </article>
+
+        <!-- TABLE PANEL -->
+        <article class="card">
+          <header class="card-header">
+            <div>
+              <h2>Recent projects</h2>
+              <p>Example of how you can show project pipeline.</p>
+            </div>
+            <button class="btn btn-primary btn-small">
+              + New project
+            </button>
+          </header>
+
+          <div class="card-body table-wrapper">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Type</th>
+                  <th>Budget</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>FinCore Analytics</td>
+                  <td>AI dashboard</td>
+                  <td>$3,200</td>
+                  <td><span class="status-tag status-active">In progress</span></td>
+                </tr>
+                <tr>
+                  <td>NeoClinic</td>
+                  <td>Automation + CRM</td>
+                  <td>$5,800</td>
+                  <td><span class="status-tag status-review">Review</span></td>
+                </tr>
+                <tr>
+                  <td>Voltify</td>
+                  <td>SaaS landing + app</td>
+                  <td>$2,450</td>
+                  <td><span class="status-tag status-done">Shipped</span></td>
+                </tr>
+                <tr>
+                  <td>Skyline Realty</td>
+                  <td>Ad funnel dashboard</td>
+                  <td>$1,900</td>
+                  <td><span class="status-tag status-active">In progress</span></td>
+                </tr>
+                <tr>
+                  <td>Pulse Labs</td>
+                  <td>Internal tools</td>
+                  <td>$4,300</td>
+                  <td><span class="status-tag status-queued">Queued</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <!-- GRID: TASKS / AUTOMATIONS -->
+      <section class="grid-2">
+        <article class="card">
+          <header class="card-header">
+            <div>
+              <h2>Today’s focus</h2>
+              <p>Manual tasks you still handle yourself.</p>
+            </div>
+          </header>
+          <div class="card-body tasks">
+            <label class="task">
+              <input type="checkbox" />
+              <span>
+                Review ZenoAI form submission for “Voltify dashboard”.
+              </span>
+            </label>
+            <label class="task">
+              <input type="checkbox" />
+              <span>
+                Prepare project scope and milestones for NeoClinic CRM.
+              </span>
+            </label>
+            <label class="task">
+              <input type="checkbox" />
+              <span>
+                Record 2–3 minute Loom video for FinCore explaining timeline.
+              </span>
+            </label>
+            <label class="task">
+              <input type="checkbox" />
+              <span>
+                Push latest changes to GitHub & deploy on Vercel.
+              </span>
+            </label>
+          </div>
+        </article>
+
+        <article class="card">
+          <header class="card-header">
+            <div>
+              <h2>ZenoAI automations</h2>
+              <p>Example of what your AI engine handles.</p>
+            </div>
+          </header>
+          <div class="card-body automations">
+            <div class="automation-item">
+              <h3>Smart intake analysis</h3>
+              <p>
+                Every new form submission is parsed by ZenoAI to extract scope, tech stack,
+                risks, and suggested budget range.
+              </p>
+              <span class="automation-tag">Active</span>
+            </div>
+
+            <div class="automation-item">
+              <h3>Project brief generator</h3>
+              <p>
+                Draft project briefs and milestone documents are generated automatically
+                and sent to your notes.
+              </p>
+              <span class="automation-tag">Active</span>
+            </div>
+
+            <div class="automation-item">
+              <h3>Test & QA suggestions</h3>
+              <p>
+                For each deploy, ZenoAI suggests test scenarios and potential edge cases
+                to validate before hand-off.
+              </p>
+              <span class="automation-tag automation-tag-muted">Planned</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <span>Built as a sample project for ZenoAI Studio.</span>
+        <span>Stack: HTML • CSS • JS • Chart.js</span>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
